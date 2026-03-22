@@ -1,0 +1,161 @@
+// OP1: insertMany()
+
+db.products.insertMany([
+  {
+    "name": "Garmin Fenix 7X Solar",
+    "category": "Electronics",
+    "price": 89999,
+    "brand": "Garmin",
+    "device_type": "Smartwatch",
+    "warranty_years": 2,
+    "specifications": {
+      "display": "1.4 inch",
+      "battery_life": "28 days",
+      "water_resistance": "10 ATM",
+      "gps": true,
+      "connectivity": ["Bluetooth", "WiFi"]
+    },
+    "features": ["Heart Rate Monitor", "Sleep Tracking", "Solar Charging"]
+  },
+  {
+    "name": "DJI Osmo Mobile 6 (Gimbal Pro)",
+    "category": "Electronics",
+    "price": 15999,
+    "brand": "DJI",
+    "device_type": "Gimbal",
+    "warranty_years": 1,
+    "specifications": {
+      "stabilization": "3-axis",
+      "battery_life": "6.5 hours",
+      "weight": "309g",
+      "compatibility": ["Android", "iOS"]
+    },
+    "features": ["ActiveTrack", "Gesture Control", "Foldable Design"]
+  },
+  {
+    "name": "OnePlus 12R",
+    "category": "Electronics",
+    "price": 39999,
+    "brand": "OnePlus",
+    "device_type": "Smartphone",
+    "warranty_years": 1,
+    "specifications": {
+      "ram": "8GB",
+      "storage": "128GB",
+      "battery": "5000mAh",
+      "processor": "Snapdragon 8 Gen 2"
+    },
+    "features": ["5G", "Fast Charging", "AMOLED Display"]
+  },
+  {
+    "name": "Whey Protein Isolate",
+    "category": "Groceries",
+    "price": 2999,
+    "brand": "Optimum Nutrition",
+    "product_type": "Protein Supplement",
+    "flavor": "Chocolate",
+    "weight": "1kg",
+    "expiry_date": new Date("2025-06-30"),
+    "nutrition": {
+      "protein": "24g",
+      "calories": 120,
+      "carbs": "3g",
+      "fat": "1g"
+    },
+    "usage": {
+      "serving_size": "30g",
+      "recommended_use": "Post-workout"
+    }
+  },
+  {
+    "name": "Creatine Monohydrate",
+    "category": "Groceries",
+    "price": 1499,
+    "brand": "MuscleBlaze",
+    "product_type": "Supplement",
+    "weight": "300g",
+    "expiry_date": new Date("2025-12-31"),
+    "nutrition": {
+      "creatine": "5g per serving",
+      "calories": 0
+    },
+    "usage": {
+      "serving_size": "5g",
+      "recommended_use": "Pre/Post workout"
+    }
+  },
+  {
+    "name": "Protein Bar",
+    "category": "Groceries",
+    "price": 120,
+    "brand": "RiteBite",
+    "flavor": "Chocolate Almond",
+    "expiry_date": new Date("2024-11-30"),
+    "nutrition": {
+      "protein": "10g",
+      "calories": 200
+    },
+    "ingredients": ["Whey Protein", "Nuts", "Cocoa"]
+  },
+  {
+    "name": "Formula 1 Racing Jacket",
+    "category": "Clothing",
+    "price": 5999,
+    "brand": "Puma",
+    "type": "Jacket",
+    "collection": "F1",
+    "sizes": ["S", "M", "L", "XL"],
+    "material": "Polyester",
+    "fit": "Slim Fit",
+    "season": "Winter"
+  },
+  {
+    "name": "Football Jersey",
+    "category": "Clothing",
+    "price": 1999,
+    "brand": "Adidas",
+    "type": "Jersey",
+    "team": "Real Madrid",
+    "sizes": ["S", "M", "L", "XL"],
+    "material": "Polyester",
+    "fit": "Regular",
+    "features": ["Breathable", "Sweat-wicking"]
+  },
+  {
+    "name": "Cargo Pants",
+    "category": "Clothing",
+    "price": 2499,
+    "brand": "H&M",
+    "type": "Pants",
+    "sizes": ["30", "32", "34", "36"],
+    "material": "Cotton",
+    "color_options": ["Black", "Olive", "Beige"],
+    "fit": "Relaxed Fit",
+    "features": ["Multiple Pockets", "Durable Fabric"]
+  }
+]);
+
+// OP2: find()
+db.products.find({
+  category: 'Electronics',
+  price: {$gt: 20000}
+});
+
+
+// OP3: find()
+db.products.find({
+  category:'Groceries',
+  expiry_date: { $lt: new Date("2025-01-01")}
+  
+})
+
+// OP4: updateOne()
+db.products.updateOne(
+  { name: "OnePlus 12R" },
+  { $set: { discount_percent: 10 } }
+);
+
+
+// OP5: createIndex() — index on category
+db.products.createIndex({ category: 1 });
+// This index improves query performance when filtering products by category, as MongoDB can quickly locate relevant documents instead of scanning the entire collection.
